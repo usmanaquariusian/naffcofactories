@@ -1,0 +1,144 @@
+/* Modal Overlay (Fixed z-index) */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Dim background */
+  z-index: 1050; /* Ensure it appears above everything */
+}
+
+/* Modal Box (Centered, Fixed z-index, Responsive) */
+.custom-modal {
+  display: none;
+  position: fixed;
+  z-index: 1100; /* Higher than overlay and header */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 960px;
+  max-height: 90vh;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Modal Content (Scroll if needed) */
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  text-align: left; /* Ensures proper alignment */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Table Styling (Fixed Alignment) */
+.modal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+
+.modal-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  text-align: left; /* Left-align table text for better readability */
+}
+
+.modal-table .center-text {
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Image Slider (Only 1 Image Fully Visible, Responsive) */
+.slider-container {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  height: 50vh;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slider img {
+  width: 100%;
+  max-width: 960px;
+  height: 50vh;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+@media (max-width: 768px) {
+  .slider img {
+    height: 40vh !important;
+  }
+}
+
+/* Navigation Arrows */
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  font-size: 18px;
+  z-index: 100;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+.prev:hover, .next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Responsive Fixes for Mobile */
+@media (max-width: 768px) {
+  .custom-modal {
+    width: 95%;
+    max-height: 85vh;
+    padding: 15px;
+  }
+
+  .modal-content {
+    padding: 10px;
+  }
+
+  .slider-container {
+    height: 40vh;
+  }
+
+  .modal-table td {
+    font-size: 14px; /* Reduce font size for better mobile readability */
+    padding: 8px;
+  }
+
+  .prev, .next {
+    padding: 5px;
+    font-size: 16px;
+  }
+}
