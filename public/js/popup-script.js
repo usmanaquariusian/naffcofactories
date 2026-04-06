@@ -39,3 +39,35 @@ function moveSlide(sliderId, step) {
   slider.style.transform = `translateX(${newTranslateX}%)`;
   slider.setAttribute("data-index", currentIndex);
 }
+
+function optimizeFactoryImages() {
+  const allImages = document.querySelectorAll("img");
+
+  allImages.forEach((img, index) => {
+    // Keep above-the-fold logo/hero eager, lazy-load the rest.
+    if (!img.hasAttribute("loading")) {
+      img.loading = index < 2 ? "eager" : "lazy";
+    }
+
+    if (!img.hasAttribute("decoding")) {
+      img.decoding = "async";
+    }
+
+    // Retry GIF loads once with cache-busting if hosting/CDN serves a stale edge response.
+    const src = img.getAttribute("src") || "";
+    if (src.toLowerCase().endsWith(".gif")) {
+      img.addEventListener("error", function onGifError() {
+        if (img.dataset.gifRetryDone === "1") return;
+        img.dataset.gifRetryDone = "1";
+        const separator = img.src.includes("?") ? "&" : "?";
+        img.src = `${img.src}${separator}retry=${Date.now()}`;
+      });
+    }
+  });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", optimizeFactoryImages);
+} else {
+  optimizeFactoryImages();
+}
